@@ -2,7 +2,8 @@ import React from "react";
 import {View, Text, TouchableOpacity} from 'react-native';
 import { useDispatch } from "react-redux";
 import Counter from "./Counter";
-import { INCREMENT, DECREMENT } from "./constants";
+// import { INCREMENT, DECREMENT } from "./constants";
+import { increment, decrement } from "./actions";
 
 const MainComponent = () => {
   const dispatch = useDispatch();
@@ -10,14 +11,16 @@ const MainComponent = () => {
   return (
    
    
-      <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+      <View style={{ flex:1, justifyContent:'center', alignItems:'center' }}>
         <Text >Counter App</Text>
        
-          <TouchableOpacity onPress={(event)=> dispatch({type: INCREMENT})} >
+          <TouchableOpacity style={{borderWidth:2, padding:5, paddingHorizontal:12, marginVertical:10}}
+          onPress={(event)=> dispatch(increment())} >
             <Text>Increment</Text>
             </TouchableOpacity>
            <Counter />
-          <TouchableOpacity  onPress={(event)=> dispatch({type: DECREMENT})}>
+          <TouchableOpacity  style={{borderWidth:2, padding:5, marginVertical:10}}
+          onPress={(event)=> dispatch(decrement())}>
             <Text> Decrement </Text>
             </TouchableOpacity>
       
