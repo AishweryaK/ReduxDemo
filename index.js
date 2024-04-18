@@ -13,8 +13,11 @@ import { AppRegistry } from 'react-native';
 import { Provider } from 'react-redux';
 import App from './App';
 import { name as appName } from './app.json';
-// import {store} from './srcRTK/storeRTK';
-import store from './src/store';
+import { store, sagaMiddleware } from './srcRTK/storeRTK';
+import mySaga from './srcRTK/sagas';
+// import store from './src/store';
+
+sagaMiddleware.run(mySaga);
 
 const ReduxApp = () => (
   <Provider store={store}>
