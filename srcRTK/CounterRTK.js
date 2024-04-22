@@ -5,7 +5,6 @@ import { Text, View } from "react-native";
 const CounterRTK = () => {
     const count = useSelector(state => state.counter.count)
     console.log(count)
-    console.log(count)
     return (
         <View>
            <Text> Count : {count}
