@@ -1,10 +1,11 @@
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import {View, Text, TouchableOpacity, TextInput} from 'react-native';
 import { useDispatch, useSelector} from "react-redux";
 import CounterRTK from "./CounterRTK";
 import { increase, decrease} from "./reducerSliceRTK";
 import { GET_USERS_FETCH } from "./actionsRTK";
 import { setInputValue } from "./InputSliceRTK";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 
 const MainComponentRTK = () => {
@@ -12,6 +13,8 @@ const MainComponentRTK = () => {
 // const userAPI = useSelector((state)=> state.userR)
 const [name, setName] = useState("");
 // console.log(userAPI)
+const userName = useSelector((state)=>state.inputV.inputValue);
+const myRef = useRef(false);
 
 const handleInput = (input) => {
   console.log(input);
@@ -19,10 +22,17 @@ const handleInput = (input) => {
   
 }
 const handleSave = ()=> {
+  // AsyncStorage.clear();
   dispatch(setInputValue(name));
   setName("");
+  if(userName != "")
+  {
+  myRef.current= true;
+  }
 }
-console.log(name);
+console.log(name, "name");
+console.log(userName, "what i entered");
+
   return (
    
       <View style={{ flex:1, justifyContent:'center', alignItems:'center' }}>
@@ -52,6 +62,8 @@ console.log(name);
           onPress={handleSave}>
             <Text> Save </Text>
             </TouchableOpacity>
+
+            {myRef.current && <Text> hello {userName} ! </Text>}
        
       </View>
   );

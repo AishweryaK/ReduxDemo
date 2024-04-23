@@ -2,9 +2,19 @@ import { configureStore } from "@reduxjs/toolkit";
 // import counterSliceRTK  from "./reducerSliceRTK";
 import createSagaMiddleware from "@redux-saga/core";
 import { rootReducersRTK} from "./rootReducersRTK";
-import { persistReducer, persistStore } from "redux-persist";
+// import { persistReducer, persistStore } from "redux-persist";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 // import persistStore from "redux-persist/es/persistStore";
+import {
+    FLUSH,
+    PAUSE,
+    PERSIST,
+    PURGE,
+    REGISTER,
+    REHYDRATE,
+    persistReducer,
+    persistStore
+  } from 'redux-persist';
 
 export const sagaMiddleware = createSagaMiddleware();
 
@@ -21,7 +31,9 @@ export const store=configureStore(
         reducer: persistedReducer,
         // middleware: [sagaMiddleware] ,
         middleware: (getDefaultMiddleware) => 
-            getDefaultMiddleware().concat(sagaMiddleware)
+            getDefaultMiddleware({serializableCheck: {
+                ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
+    }}).concat(sagaMiddleware),
         
 
     }
